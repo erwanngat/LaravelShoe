@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Shoe;
+use App\Http\Controllers\shoesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/shoes', [ShoesController::class, 'index']);
+Route::get('/shoes/create', [ShoesController::class, 'create']);
+Route::post('/shoes', [ShoesController::class, 'store']);
+Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
+Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
+Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
+Route::get('/shoes/{shoe}', [ShoesController::class, 'show']  );
+
+// Route::get('/', function () {
+//     return redirect('/shoes');
+// });
