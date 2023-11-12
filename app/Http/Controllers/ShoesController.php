@@ -22,20 +22,24 @@ class ShoesController extends Controller
     public function store()
     {
         // valider les données
-        // request()->validate([
-        //     'name' => 'required|min:2|max:20|regex:/^[A-Z][a-z]+$/',
-        //     'price' => 'required|decimal:0,2|max:99999',
-        //     'type' => 'required|max:50',
-        //     'mineral_content' => 'required|decimal:0,2|max:100',
-        //     'expiry_date' => 'required|date'
-        // ]);
+        request()->validate([
+            'name' => 'required|min:1|max:50|regex:/^[A-Z][a-z]+$/',
+            'price' => 'required|numeric|between:0,99999.99',
+            'size' => 'required|numeric|between:25,60',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
+        ]);
+
+        $imageName = request()->file('image')->getClientOriginalName();
+        request()->file('image')->move(public_path('images'), $imageName);
 
         $f = new Shoe();
         $f->name = request()->name;
         $f->price = request()->price;
         $f->size = request()->size;
+        $f->image = $imageName;
         $f->save();
-        return  redirect('/shoes/' . $f->id);
+        info("Shoe saved");
+        return  redirect('/shoes/' . $f->id)->with('success', 'Shoe created successfully!');
     }
 
     public function show(Shoe $shoe)
@@ -65,7 +69,8 @@ class ShoesController extends Controller
         return redirect('/shoes/' . $shoe->id);
     }
 
-    public function destroy(Shoe $shoe){
+    public function destroy(Shoe $shoe)
+    {
         $shoe->delete();
         return redirect('/shoes');
     }
