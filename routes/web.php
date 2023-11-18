@@ -23,6 +23,15 @@ Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
 Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
 Route::get('/shoes/{shoe}', [ShoesController::class, 'show']  );
 
-// Route::get('/', function () {
-//     return redirect('/shoes');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
