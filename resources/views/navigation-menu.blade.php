@@ -20,6 +20,9 @@
                             {{ __('Add a shoe') }}
                         </x-nav-link>
                     @endif
+                    <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                        {{ __('Cart') }}
+                    </x-nav-link>
                 </div>
             </div>
 

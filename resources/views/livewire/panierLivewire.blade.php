@@ -1,5 +1,26 @@
-<div class="text-center pt-10">
-    <h1 class="text-4xl mb-8">All shoes</h1>
+<style>
+    .custom-icon {
+        font-size: 6rem;
+    }
+
+    .custom-translate {
+        transform: translateX(490px);
+    }
+</style>
+
+
+<div>
+    <div class="grid grid-cols-2">
+        <div class="text-center pt-10 custom-translate">
+            <h1 class="text-4xl">All shoes</h1>
+        </div>
+        <div class="flex justify-end items-center pr-40">
+            <a href='/panier'>
+                <i class="ri-shopping-cart-2-line custom-icon"></i>
+            </a>
+        </div>
+    </div>
+
 
     <div class="flex flex-wrap">
         @foreach ($shoes as $shoe)

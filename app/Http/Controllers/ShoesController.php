@@ -18,6 +18,9 @@ class ShoesController extends Controller
         }
     }
 
+    public function showPanier(){
+        return view('shoes.panier');
+    }
     public function create()
     {
         return view('shoes.create');

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 
 Route::resource('/shoes', ShoesController::class);
+Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
 
 Route::get('/', function () {
     return redirect('shoesUser');
