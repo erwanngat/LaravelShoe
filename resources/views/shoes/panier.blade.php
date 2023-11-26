@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:show-panier/>
+    <livewire:show-panier :shoes="$shoes"/>
 </x-app-layout>

@@ -1,3 +1,42 @@
-<div>
-    <p>test panier</p>
+<style>
+    .custom-width {
+        font-size: 4rem;
+    }
+</style>
+<div class="flex justify-center">
+    <div class="w-full p-8">
+        <div class="border p-4">
+            <div class='text-center'>
+                <table class="w-full table-fixed">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="p-2">Name</th>
+                            <th class="p-2">Price</th>
+                            <th class="p-2">Size</th>
+                            <th class="p-2">Image</th>
+                            <th class="p-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($shoes as $shoe)
+                            <tr class="border-b">
+                                <td class='p-2'>{{ $shoe->name }}</td>
+                                <td class='p-2'>{{ $shoe->price }} €</td>
+                                <td class='p-2'>{{ $shoe->size }}</td>
+                                <td class='p-2 flex justify-center items-center'>
+                                    <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}"
+                                        class="max-w-xs max-h-32 object-scale-down">
+                                </td>
+                                <td>
+                                    <button wire:click='removePanier({{ $shoe }})'>
+                                        <i class="ri-close-line text-red-500 custom-width"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
