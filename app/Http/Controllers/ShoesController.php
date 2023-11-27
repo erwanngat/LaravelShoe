@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Shoe;
+use App\Models\Panier;
+use Illuminate\Http\Request;
 
 
 class ShoesController extends Controller
@@ -18,8 +19,18 @@ class ShoesController extends Controller
         }
     }
 
-    public function showPanier(){
-        return view('shoes.panier');
+    public function showPanier()
+    {
+        $user = auth()->user();
+        $panier = Panier::where('idUser', $user->id)->get();
+        $shoes = [];
+        foreach($panier as $item){
+            $shoe = Shoe::find($item->idShoes);
+            if ($shoe) {
+                $shoes[] = $shoe;
+            }
+        }
+        return view('shoes.panier')->with('shoes', $shoes);
     }
     public function create()
     {
@@ -51,7 +62,10 @@ class ShoesController extends Controller
 
     public function show(Shoe $shoe)
     {
-        return view('shoes.show', compact('shoe'));
+        if(auth()->user()){
+            return view('shoes.show', compact('shoe'));
+        }
+        else{return view('shoes.showUser', compact ('shoe'));}
     }
 
     public function edit(Shoe $shoe)

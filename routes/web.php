@@ -14,29 +14,31 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route::resource('/shoes', ShoesController::class);
 
-// Route::get('/shoes', [ShoesController::class, 'index']);
-// Route::get('/shoes/create', [ShoesController::class, 'create']);
-// Route::post('/shoes', [ShoesController::class, 'store']);
-// Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
-// Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
-// Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
-// Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
-
-Route::resource('/shoes', ShoesController::class);
-Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
+Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
+Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 
 Route::get('/', function () {
     return redirect('shoesUser');
 });
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/shoes/create', [ShoesController::class, 'create']);
+    Route::post('/shoes', [ShoesController::class, 'store']);
+    Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
+    Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
+    Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return redirect('shoes');
-    })->name('dashboard');
+    ])->group(function () {
+        Route::get('/dashboard', function () {
+            return redirect('shoes');
+        })->name('dashboard');
+        Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
 });

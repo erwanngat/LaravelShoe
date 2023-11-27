@@ -10,6 +10,7 @@ class PanierLivewire extends Component
 {
 
     public function addPanier($shoeId){
+        dd('test');
 
         $user = auth()->user();
         $panier = Panier::where('idUser', $user->id)
@@ -27,10 +28,14 @@ class PanierLivewire extends Component
             $newPanier->save();
         }
     }
+
+    public function test(){
+        dd('test');
+    }
+
     public function render()
     {
         $shoes = Shoe::all();
-        return view('livewire.panierLivewire', ['shoes' => $shoes]);
-        
+        return view('livewire.panierLivewire', ['shoes' => $shoes]);  
     }
 }
