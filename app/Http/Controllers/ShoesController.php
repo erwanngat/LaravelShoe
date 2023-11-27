@@ -11,9 +11,16 @@ class ShoesController extends Controller
     public function index()
     {
         $shoes = Shoe::all();
-        return view('shoes.index', compact('shoes'));
+        if(auth()->user()){
+            return view('shoes.index', compact('shoes'));
+        }else{
+            return view('shoes.indexUser', compact('shoes'));
+        }
     }
 
+    public function showPanier(){
+        return view('shoes.panier');
+    }
     public function create()
     {
         return view('shoes.create');

@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('main')
+<x-app-layout>
     <div class="max-w-screen-md mx-auto text-center">
         <div class="justify-between p-8">
             <h1 class="text-4xl text-center">Create a shoe</h1>
@@ -50,10 +48,4 @@
             </div>
         </form>
     </div>
-
-    <div class="absolute top-0 right-0 mt-4 mr-4">
-        <a href="/shoes">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</button>
-        </a>
-    </div>
-@endsection
+</x-app-layout>

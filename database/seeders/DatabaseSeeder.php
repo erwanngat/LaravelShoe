@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $u = new User();
+        $u->name = "admin";
+        $u->email = "admin@admin.fr";
+        $u->permissions = 1;
+        $u->password = hash::make('admin');
+        $u->save();
 
         $this->call([
             ShoeSeeder::class,
