@@ -66,7 +66,9 @@ class ShoesController extends Controller
         if(auth()->user()){
             return view('shoes.show', compact('shoe'));
         }
-        else{return view('shoes.showUser', compact ('shoe'));}
+        else{
+            return view('shoes.showUser', compact ('shoe'));
+        }
     }
 
     public function edit(Shoe $shoe)

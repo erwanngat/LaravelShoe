@@ -3,7 +3,7 @@
 @section('main')
     <div class="max-w-screen-md mx-auto text-center">
         <div class="justify-between p-8">
-            <h1 class="text-4xl text-center">Edit {{ $shoe->name }} flour</h1>
+            <h1 class="text-4xl text-center">Edit {{ $shoe->name }} shoes</h1>
         </div>
         <form action="/shoes/{{ $shoe->id }}" method="post">
             @csrf
