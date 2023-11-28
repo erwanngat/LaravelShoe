@@ -21,13 +21,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $u = new User();
-        $u->name = "admin";
-        $u->email = "admin@admin.fr";
-        $u->permissions = 1;
-        $u->password = hash::make('admin');
-        $u->save();
-
         $this->call([
             ShoeSeeder::class,
         ]);

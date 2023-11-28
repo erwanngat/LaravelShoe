@@ -1,15 +1,13 @@
-<style>
-    .custom-icon {
-        font-size: 6rem;
-    }
-
-    .custom-translate {
-        transform: translateX(490px);
-    }
-</style>
-
 <div>
-    <button wire:click='test'>test</button>
+    <style>
+        .custom-icon {
+            font-size: 6rem;
+        }
+
+        .custom-translate {
+            transform: translateX(380px);
+        }
+    </style>
     <div class="grid grid-cols-2">
         <div class="text-center pt-10 custom-translate">
             <h1 class="text-4xl">All shoes</h1>
@@ -28,7 +26,7 @@
                 <div class="border p-4">
                     <div class='text-center'>
                         <button wire:click='addPanier({{ $shoe->id }})' class='p-2 bg-blue-200 rounded-2xl'>Add to
-                            card</button>
+                            cart</button>
                     </div>
                     <a href="/shoes/{{ $shoe->id }}">
                         <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}" class="w-full mb-2">

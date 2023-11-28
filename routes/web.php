@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\Shoe;
-use App\Http\Controllers\shoesController;
+use App\Livewire\Test;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\shoesController;
 
 /*
 |--------------------------------------------------------------------------
