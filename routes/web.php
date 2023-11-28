@@ -17,23 +17,17 @@ use App\Http\Controllers\shoesController;
 */
 // Route::resource('/shoes', ShoesController::class);
 
-Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
-Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
-
-Route::get('/', [ShoesController::class, 'index'])->name('shoes');
-
-Route::get('/shoes/create', function (){
-    dd('ça marche');
-    return view('shoes.create');
-});
-
 Route::middleware(['isAdmin'])->group(function () {
-    // Route::get('/shoes/create', [ShoesController::class, 'create'])->name('create');
+    Route::get('/shoes/create', [ShoesController::class, 'create'])->name('create');
     Route::post('/shoes', [ShoesController::class, 'store']);
     Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
     Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
     Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
 });
+
+Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
+Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
+Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 
 Route::middleware([
     'auth:sanctum',
