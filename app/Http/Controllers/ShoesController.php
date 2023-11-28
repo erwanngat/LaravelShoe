@@ -34,6 +34,7 @@ class ShoesController extends Controller
     }
     public function create()
     {
+        dd('test');
         return view('shoes.create');
     }
 

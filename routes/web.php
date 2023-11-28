@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 
 Route::middleware(['isAdmin'])->group(function () {
-    Route::get('/shoes/create', [ShoesController::class, 'create']);
+    Route::get('/shoes/create', [ShoesController::class, 'create'])->name('create');
     Route::post('/shoes', [ShoesController::class, 'store']);
     Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
     Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);

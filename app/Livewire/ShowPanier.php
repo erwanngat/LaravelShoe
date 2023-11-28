@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Shoe;
 use App\Models\Panier;
+use App\Models\User;
 use Livewire\Component;
 
 class ShowPanier extends Component
@@ -13,6 +14,7 @@ class ShowPanier extends Component
     public function mount($shoes)
     {
         $this->shoes = $shoes;
+
     }
 
     public function removePanier($idShoe){
@@ -27,7 +29,7 @@ class ShowPanier extends Component
         }
 
         // refresh panier user
-        // $this->shoes = auth()->user()->User::panier();
+        $this->shoes = Panier::where('idUser', auth()->user()->id)->get();
     }
 
     public function render()
