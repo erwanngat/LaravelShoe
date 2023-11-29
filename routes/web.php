@@ -28,11 +28,12 @@ Route::middleware(['isAdmin'])->group(function () {
 Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
+Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified', 
+    'verified',
     ])->group(function () {
         Route::get('/dashboard', function () {
             return redirect('shoes');

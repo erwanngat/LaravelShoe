@@ -92,6 +92,10 @@ class ShoesController extends Controller
         return redirect('/shoes/' . $shoe->id);
     }
 
+    public function pay(){
+        return view('pay');
+    }
+
     public function destroy(Shoe $shoe)
     {
         $shoe->delete();
