@@ -10,11 +10,14 @@ use Livewire\Component;
 class ShowPanier extends Component
 {
     public $shoes;
+    public $total;
 
     public function mount($shoes)
     {
         $this->shoes = $shoes;
-
+        foreach($this->shoes as $shoe){
+            $this->total += $shoe->price * $shoe->panier->where('idUser', auth()->user()->id)->first()->number;
+        }
     }
 
     public function removePanier($idShoe){
@@ -27,9 +30,9 @@ class ShowPanier extends Component
         } else if ($panier) {
             $panier->delete();
         }
-
-        // refresh panier user
-        $this->shoes = Panier::where('idUser', auth()->user()->id)->get();
+        $this->shoes = Panier::where('idUser', auth()->user()->id)->get()->map->shoe;
+        $shoePrice = Shoe::where('id', $idShoe)->value('price');
+        $this->total -= $shoePrice;
     }
 
     public function render()

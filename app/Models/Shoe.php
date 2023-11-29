@@ -14,6 +14,6 @@ class Shoe extends Model
 
     public function panier()
     {
-        return $this->hasMany(Panier::class);
+        return $this->hasMany(Panier::class, 'idShoes');
     }
 }

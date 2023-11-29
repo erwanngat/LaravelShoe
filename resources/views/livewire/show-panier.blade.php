@@ -28,7 +28,7 @@
                                     <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}"
                                         class="max-w-xs max-h-32 object-scale-down">
                                 </td>
-                                <td class='p-2'> {{ $shoe->number }}</td>
+                                <td class='p-2'> {{ $shoe->panier->where('idUser', auth()->user()->id)->first()->number }}</td>
                                 <td>
                                     <button wire:click='removePanier({{ $shoe->id }})'>
                                         <i class="ri-close-line text-red-500 custom-width"></i>
@@ -37,12 +37,15 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class='text-center text-2xl'>Votre panier est vide</td>
+                                <td colspan="8" class='text-center text-2xl pt-4'>Votre panier est vide</td>
                             <tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+        @if($total != 0)
+        <p class='text-right text-2xl pt-24 pr-56'>Total : {{ $total }}</p>
+        @endif
     </div>
 </div>

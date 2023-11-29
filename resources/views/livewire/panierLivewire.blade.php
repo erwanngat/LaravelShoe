@@ -18,6 +18,16 @@
             </a>
         </div>
     </div>
+    <div class="pl-32">
+        <x-button wire:click="toggleMenu" class="w-auto">Sort</x-button>
+        @if ($menu)
+            <div class="mt-2 bg-white shadow-md rounded-md w-36">
+                <span wire:click='sortAlpha' class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Alphabétique</span>
+                <span wire:click='sortCroissant' class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Croissant</span>
+                <span wire:click='sortDecroissant' class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Décroissant</span>
+            </div>
+        @endif
+    </div>
 
 
     <div class="flex flex-wrap">

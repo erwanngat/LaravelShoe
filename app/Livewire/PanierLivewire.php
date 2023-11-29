@@ -8,6 +8,16 @@ use Livewire\Component;
 
 class PanierLivewire extends Component
 {
+    public $menu = false;
+    public $shoes;
+    public $trie;
+
+    public function mount()
+    {
+        if($this->shoes == null){
+            $this->shoes = Shoe::all();
+        }
+    }
 
     public function addPanier($shoeId){
         $user = auth()->user();
@@ -27,9 +37,43 @@ class PanierLivewire extends Component
         }
     }
 
+    public function toggleMenu(){
+        if(!$this->menu){
+            $this->menu = true;
+        }else{
+            $this->menu = false;
+        }
+    }
+
+    public function sortAlpha(){
+        $this->menu = false;
+        $this->trie = 1;
+    }
+
+    public function sortCroissant(){
+        $this->menu = false;
+        $this->trie = 2;
+    }
+
+    public function sortDecroissant(){
+        $this->menu = false;
+        $this->trie = 3;
+    }
+
     public function render()
     {
-        $shoes = Shoe::all();
-        return view('livewire.panierLivewire', ['shoes' => $shoes]);
+        if($this->trie == 1){
+            $shoes = Shoe::orderBy('name', 'asc')->get();
+            $this->shoes = $shoes;
+        }
+        elseif($this->trie == 2){
+            $shoes = Shoe::orderBy('price', 'asc')->get();
+            $this->shoes = $shoes;
+        }
+        elseif($this->trie == 3){
+            $shoes = Shoe::orderBy('price', 'desc')->get();
+            $this->shoes = $shoes;
+        }
+        return view('livewire.panierLivewire');
     }
 }
