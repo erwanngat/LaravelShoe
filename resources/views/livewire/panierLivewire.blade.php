@@ -16,6 +16,9 @@
             <a href='/panier'>
                 <i class="ri-shopping-cart-2-line custom-icon"></i>
             </a>
+            @if($count != 0)
+            <p class='text-4xl text-red-500'>{{ $count }}</p>
+            @endif
         </div>
     </div>
     <div class="pl-32">

@@ -11,6 +11,7 @@ class PanierLivewire extends Component
     public $menu = false;
     public $shoes;
     public $trie;
+    public $count;
 
     public function mount()
     {
@@ -74,6 +75,15 @@ class PanierLivewire extends Component
             $shoes = Shoe::orderBy('price', 'desc')->get();
             $this->shoes = $shoes;
         }
+        
+        $tot = 0;
+        $panierItems = Panier::where('idUser', auth()->user()->id)->get();
+        foreach ($panierItems as $item) {
+            $number = $item->number;
+            $tot += $number;
+        }
+        $this->count = $tot;
+
         return view('livewire.panierLivewire');
     }
 }
