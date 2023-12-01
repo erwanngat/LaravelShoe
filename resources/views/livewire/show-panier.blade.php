@@ -51,7 +51,7 @@
             </div>
         </div>
         @if ($total != 0)
-            <p class='text-right text-2xl pt-24 pr-56'>Total : {{ $total }}</p>
+            <p class='text-right text-2xl pt-24 pr-56'>Total : {{ $total }} €</p>
             <div class='text-right text-2xl pt-2 pr-20'>
                 <a href="{{ route('pay') }}">
                     <x-button>Pay</x-button>

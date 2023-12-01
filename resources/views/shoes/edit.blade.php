@@ -1,7 +1,10 @@
-@extends('layout')
-
-@section('main')
+<x-app-layout>
     <div class="max-w-screen-md mx-auto text-center">
+        <div class="absolute top-0 right-0 pt-20 pr-16">
+            <a href="/shoes/{{ $shoe->id }}">
+                <x-button>Back to shoe</x-button>
+            </a>
+        </div>
         <div class="justify-between p-8">
             <h1 class="text-4xl text-center">Edit {{ $shoe->name }} shoes</h1>
         </div>
@@ -12,7 +15,8 @@
 
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-bold">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Name" value="{{ $shoe->name }}" required
+                <input type="text" id="name" name="name" placeholder="Name" value="{{ $shoe->name }}"
+                    required
                     class="w-full px-3 py-2 border rounded-md shadow-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-500 @enderror">
                 @error('name')
                     <p class="text-red-500">{{ $message }}</p>
@@ -31,7 +35,8 @@
 
             <div class="mb-4">
                 <label for="size" class="block text-gray-700 font-bold">Size:</label>
-                <input type="number" id="size" name="size" placeholder="size" value="{{ $shoe->size }}" required
+                <input type="number" id="size" name="size" placeholder="size" value="{{ $shoe->size }}"
+                    required
                     class="w-full px-3 py-2 border rounded-md shadow-md focus:outline-none focus:ring focus:border-blue-300 @error('type') border-red-500 @enderror">
                 @error('size')
                     <p class="text-red-500">{{ $message }}</p>
@@ -42,7 +47,7 @@
                 <label for="image" class="block text-gray-700 font-bold">Image:</label>
                 <input type="file" id="image" name="image"
                     class="px-3 py-2 border rounded-md shadow-md focus:outline-none focus:ring focus:border-blue-300 @error('image') border-red-500 @enderror">
-                @if($shoe->image)
+                @if ($shoe->image)
                     <p class="text-gray-500">Image actuelle : {{ $shoe->image }}</p>
                 @endif
                 @error('image')
@@ -50,17 +55,9 @@
                 @enderror
             </div>
 
-
             <div class="mb-4">
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                <x-button type="submit">Submit</x-button>
             </div>
         </form>
     </div>
-
-    <div class="absolute top-0 right-0 mt-4 mr-4">
-        <a href="/shoes/{{ $shoe->id }}">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</button>
-        </a>
-    </div>
-@endsection
+</x-app-layout>
