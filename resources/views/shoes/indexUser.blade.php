@@ -12,6 +12,6 @@
     </div>
 
     <div class="text-center pt-10">
-        <x-all-shoes-list :shoes='$shoes'/>
+        <x-all-shoes-list :shoes='$shoes' />
     </div>
 </x-guest-layout>

@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/shoes', [ShoeController::class, 'index']);
-Route::get('shoes/{shoe}', [ShoeController::class,'show']);
+Route::get('shoes/{shoe}', [ShoeController::class, 'show']);
 Route::post('shoes', [ShoeController::class, 'store']);
 Route::patch('shoes/{shoe}', [ShoeController::class, 'update']);
-Route::delete('shoes/{shoe}', [ShoeController::class,'destroy']);
+Route::delete('shoes/{shoe}', [ShoeController::class, 'destroy']);

@@ -13,14 +13,14 @@
                 </a>
             </div>
         @endif
-            <x-show-one :shoe='$shoe'/>
+        <x-show-one :shoe='$shoe' />
         @if (auth()->user()->permissions == 1)
             <div class="absolute top-0 left-4 mt-4 mr-4">
                 <form action="/shoes/{{ $shoe->id }}" method="post">
                     @method('DELETE')
                     @csrf
                     <button type="submit"
-                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Supprimer</button>
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                 </form>
             </div>
         @endif

@@ -48,7 +48,7 @@
                 <input type="file" id="image" name="image"
                     class="px-3 py-2 border rounded-md shadow-md focus:outline-none focus:ring focus:border-blue-300 @error('image') border-red-500 @enderror">
                 @if ($shoe->image)
-                    <p class="text-gray-500">Image actuelle : {{ $shoe->image }}</p>
+                    <p class="text-gray-500">Current image : {{ $shoe->image }}</p>
                 @endif
                 @error('image')
                     <p class="text-red-500">{{ $message }}</p>

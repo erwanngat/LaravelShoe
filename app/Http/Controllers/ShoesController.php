@@ -12,24 +12,16 @@ class ShoesController extends Controller
     public function index()
     {
         $shoes = Shoe::all();
-        if(auth()->user()){
+        if (auth()->user()) {
             return view('shoes.index', compact('shoes'));
-        }else{
+        } else {
             return view('shoes.indexUser', compact('shoes'));
         }
     }
 
     public function showPanier()
     {
-        $user = auth()->user();
-        $panier = Panier::where('idUser', $user->id)->get();
-        $shoes = [];
-        foreach($panier as $item){
-            $shoe = Shoe::find($item->idShoes);
-            if ($shoe) {
-                $shoes[] = $shoe;
-            }
-        }
+        $shoes = Panier::where('idUser', auth()->user()->id)->get()->map->shoe;
         return view('shoes.panier')->with('shoes', $shoes);
     }
     public function create()
@@ -62,11 +54,10 @@ class ShoesController extends Controller
 
     public function show(Shoe $shoe)
     {
-        if(auth()->user()){
+        if (auth()->user()) {
             return view('shoes.show', compact('shoe'));
-        }
-        else{
-            return view('shoes.showUser', compact ('shoe'));
+        } else {
+            return view('shoes.showUser', compact('shoe'));
         }
     }
 
@@ -77,14 +68,6 @@ class ShoesController extends Controller
 
     public function update(Shoe $shoe)
     {
-        // request()->validate([
-        //     'name' => 'required|min:2|max:20',
-        //     'price' => 'required|decimal:0,2|max:99999',
-        //     'type' => 'required|max:50',
-        //     'mineral_content' => 'required|decimal:0,2|max:100',
-        //     'expiry_date' => 'required|date'
-        // ]);
-
         $shoe->name = request()->name;
         $shoe->price = request()->price;
         $shoe->size = request()->size;
@@ -92,7 +75,8 @@ class ShoesController extends Controller
         return redirect('/shoes/' . $shoe->id);
     }
 
-    public function pay(){
+    public function pay()
+    {
         return view('pay');
     }
 

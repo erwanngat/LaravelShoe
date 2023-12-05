@@ -4,11 +4,11 @@
             font-size: 4rem;
         }
     </style>
-        <div class="absolute top-0 right-0 pt-20 pr-16">
-            <a href="{{ route('shoes') }}"">
-                <x-button>Back to home</x-button>
-            </a>
-        </div>
+    <div class="absolute top-0 right-0 pt-20 pr-16">
+        <a href="{{ route('shoes') }}"">
+            <x-button>Back to home</x-button>
+        </a>
+    </div>
     <div class="w-full p-8 pt-16">
         <div class="border p-4">
             <div class='text-center'>
@@ -43,7 +43,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class='text-center text-2xl pt-4'>Votre panier est vide</td>
+                                <td colspan="8" class='text-center text-2xl pt-4'>Your cart is empty</td>
                             <tr>
                         @endforelse
                     </tbody>

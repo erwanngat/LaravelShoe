@@ -15,7 +15,6 @@ use App\Http\Controllers\shoesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Route::resource('/shoes', ShoesController::class);
 
 Route::middleware(['isAdmin'])->group(function () {
     Route::get('/shoes/create', [ShoesController::class, 'create'])->name('create');
@@ -34,9 +33,9 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    ])->group(function () {
-        Route::get('/dashboard', function () {
-            return redirect('shoes');
-        })->name('dashboard');
-        Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect('shoes');
+    })->name('dashboard');
+    Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
 });

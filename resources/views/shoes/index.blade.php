@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:panierLivewire/>
+    <livewire:panierLivewire />
 </x-app-layout>
