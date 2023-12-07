@@ -1,6 +1,6 @@
 # Shoe sales website 
 
-## This project is a website for selling shoes, with ***user management*** and a ***shopping cart feature*** included.
+## This project is a website for selling shoes, with ***user management***.
 
 This project was made using Laravel framework v10.34.2 and Tailwind CSS framework v3.3.6.
 It includes:
@@ -44,6 +44,17 @@ $ npm run dev
 
 # Access the website
 $ In your browser, type http://localhost:8000
+
+# Default Accounts
+Two default accounts have been created:
+- Normal user account:
+  - Username: test@test.com
+  - Password: password
+- Admin account:
+  - Username: admin@admin.com
+  - Password: password
+
+You can use these accounts to explore the different user roles and functionalities in the application.
 ```
 
 ## License 
