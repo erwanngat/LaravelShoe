@@ -9,6 +9,7 @@ It includes:
 - User management with middleware
 - Livewire for interactive functionalities
 - Data validation for ensuring accuracy
+- Migrations and Seeders Management
 
 ## Installation requirements
 - Composer
