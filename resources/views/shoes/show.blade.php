@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="text-center pt-10">
+    <div class="text-center pt-8">
         <div class="absolute top-0 right-0 pt-20 pr-16">
             <a href="{{ route('shoes') }}"">
                 <x-button>Back to home</x-button>

@@ -40,16 +40,20 @@ class ShoesController extends Controller
         ]);
 
         $imageName = request()->file('image')->getClientOriginalName();
+        $existingImage = Shoe::where('image', $imageName)->exists();
+        if ($existingImage) {
+            $imageName = time() . '_' . $imageName;
+        }
         request()->file('image')->move(public_path('images'), $imageName);
 
-        $f = new Shoe();
-        $f->name = request()->name;
-        $f->price = request()->price;
-        $f->size = request()->size;
-        $f->image = $imageName;
-        $f->save();
+        $shoe = new Shoe();
+        $shoe->name = request()->name;
+        $shoe->price = request()->price;
+        $shoe->size = request()->size;
+        $shoe->image = $imageName;
+        $shoe->save();
         info("Shoe saved");
-        return  redirect('/shoes/' . $f->id)->with('success', 'Shoe created successfully!');
+        return  redirect('/shoes/' . $shoe->id)->with('success', 'Shoe created successfully!');
     }
 
     public function show(Shoe $shoe)
@@ -68,6 +72,22 @@ class ShoesController extends Controller
 
     public function update(Shoe $shoe)
     {
+        request()->validate([
+            'name' => 'required|min:1|max:50|regex:/^[A-Z][a-z]+$/',
+            'price' => 'required|numeric|between:0,99999.99',
+            'size' => 'required|numeric|between:25,60',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
+        ]);
+        if (request()->hasFile('image')) {
+            $imageName = request()->file('image')->getClientOriginalName();
+            $existingImage = Shoe::where('image', $imageName)->exists();
+            if ($existingImage) {
+                $imageName = time() . '_' . $imageName;
+            }
+            request()->file('image')->move(public_path('images'), $imageName);
+            $shoe->image = $imageName;
+        }
+
         $shoe->name = request()->name;
         $shoe->price = request()->price;
         $shoe->size = request()->size;

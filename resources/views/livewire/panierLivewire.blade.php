@@ -5,7 +5,7 @@
         }
 
         .custom-translate {
-            transform: translateX(480px);
+            transform: translateX(380px);
         }
     </style>
     <div class="grid grid-cols-2">
