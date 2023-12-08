@@ -2,7 +2,7 @@
 
 ## This project is a website for selling shoes, with ***user management***.
 
-This project was made using Laravel framework v10.34.2 and Tailwind CSS framework v3.3.6.
+This project was made in PHP 8.2.0 using Laravel framework v10.34.2 and Tailwind CSS framework v3.3.6.
 It includes:
 - A CRUD
 - An API for CRUD
