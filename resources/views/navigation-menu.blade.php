@@ -19,7 +19,7 @@
                         {{ __('Cart') }}
                     </x-nav-link>
                     @if (auth()->user()->permissions == 1)
-                        <x-nav-link href="{{ route('create') }}" :active="request()->routeIs('shoes.create')">
+                        <x-nav-link href="{{ route('create') }}" :active="request()->routeIs('create')">
                             {{ __('Add a shoe') }}
                         </x-nav-link>
                     @endif

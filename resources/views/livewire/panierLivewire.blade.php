@@ -3,16 +3,13 @@
         .custom-icon {
             font-size: 6rem;
         }
-
-        .custom-translate {
-            transform: translateX(380px);
-        }
     </style>
-    <div class="grid grid-cols-2">
-        <div class="text-center pt-10 custom-translate">
+    <div class="grid grid-cols-3">
+        <div class="col-span-1"></div>
+        <div class="col-span-1 col-start-2 text-center pt-10">
             <h1 class="text-4xl">All shoes</h1>
         </div>
-        <div class="flex justify-end items-center pr-40">
+        <div class="col-span-1 flex justify-end pr-40 items-center">
             <a href='/panier'>
                 <i class="ri-shopping-cart-2-line custom-icon"></i>
             </a>
