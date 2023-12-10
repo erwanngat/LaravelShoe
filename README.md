@@ -44,7 +44,7 @@ $ php artisan serve
 $ npm run dev
 
 # Access the website
-$ In your browser, type http://localhost:8000
+In your browser, type http://localhost:8000
 
 # Default Accounts
 Two default accounts have been created:
