@@ -10,6 +10,7 @@
         </a>
     </div>
     <div class="w-full p-8 pt-16">
+        {{-- {{ auth()->user()->panier }}  --}}
         <div class="border p-4">
             <div class='text-center'>
                 <table class="w-full table-fixed">
@@ -17,7 +18,7 @@
                         <tr class="border-b">
                             <th class="p-2">Name</th>
                             <th class="p-2">Price</th>
-                            <th class="p-2">Size</th>
+                            {{-- <th class="p-2">Size</th> --}}
                             <th class="p-2">Image</th>
                             <th class="p-2">Number</th>
                             <th class="p-2">Action</th>
@@ -28,7 +29,7 @@
                             <tr class="border-b">
                                 <td class='p-2'>{{ $shoe->name }}</td>
                                 <td class='p-2'>{{ $shoe->price }} €</td>
-                                <td class='p-2'>{{ $shoe->size }}</td>
+                                {{-- <td class='p-2'>{{ $shoe->size }}</td> --}}
                                 <td class='p-2 flex justify-center items-center'>
                                     <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}"
                                         class="max-w-xs max-h-32 object-scale-down">

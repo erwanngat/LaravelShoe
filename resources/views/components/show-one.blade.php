@@ -9,25 +9,26 @@
             <p class="text-left">Name: {{ $shoe->name }}</p>
             <p class="text-left">Description: Lipsum Lorem</p>
             <p class="text-left">Price: {{ $shoe->price }} €</p>
-            <p class="text-left">Size: {{ $shoe->size }}</p>
             <div class="flex space-x-1 pt-6">
                 <p class="text-2xl">Available size:</p>
             </div>
-            <div class="flex flex-wrap">
-                <div class="flex space-x-2 pt-6">
-                    @php $count = 0; @endphp
-                    @foreach ($shoe->hasSize->map->size as $size)
-                        @if ($count == 5)
-                            <div class="flex space-x-2 pt-1">
-                        @endif
-                        <div><x-divSize />{{ $size }}</div>
-                        @if ($count == 0)
-                            </div>
-                        @endif
-                        @php $count++; @endphp
-                    @endforeach
-                </div>
+            <div class="flex flex-wrap pt-6 space-x-4">
+                @php $count = 0; @endphp
+                @foreach ($shoe->hasSize->map->size as $size)
+                    @if ($count === 0)
             </div>
-        </div>
+                    <div class="flex space-x-4 pt-1">
+                        <x-divSize/>{{ $size }}</div>
+                    @else
+                        <x-divSize/>{{ $size }}</div>
+                    @endif
+                    @php
+                        $count++;
+                        if ($count === 4) {
+                            $count = 0;
+                        }
+                    @endphp
+                @endforeach
     </div>
 </div>
+

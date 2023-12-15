@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('idUser')->constrained('users');
             $table->foreignId('idShoes')->constrained('shoes');
+            $table->integer('size')->nullable();
             $table->integer('number');
             $table->timestamps();
         });
