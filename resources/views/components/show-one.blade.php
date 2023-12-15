@@ -10,7 +10,24 @@
             <p class="text-left">Description: Lipsum Lorem</p>
             <p class="text-left">Price: {{ $shoe->price }} €</p>
             <p class="text-left">Size: {{ $shoe->size }}</p>
-
+            <div class="flex space-x-1 pt-6">
+                <p class="text-2xl">Available size:</p>
+            </div>
+            <div class="flex flex-wrap">
+                <div class="flex space-x-2 pt-6">
+                    @php $count = 0; @endphp
+                    @foreach ($shoe->hasSize->map->size as $size)
+                        @if ($count == 5)
+                            <div class="flex space-x-2 pt-1">
+                        @endif
+                        <div><x-divSize />{{ $size }}</div>
+                        @if ($count == 0)
+                            </div>
+                        @endif
+                        @php $count++; @endphp
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </div>

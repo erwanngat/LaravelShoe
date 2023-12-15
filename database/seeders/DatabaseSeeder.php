@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // \App\Models\Size::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -27,6 +27,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+        ]);
+
+        $this->call([
+            SizeSeeder::class,
+        ]);
+
+        $this->call([
+            ShoeLinkSeeder::class,
         ]);
     }
 }

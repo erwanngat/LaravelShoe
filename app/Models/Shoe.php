@@ -16,4 +16,8 @@ class Shoe extends Model
     {
         return $this->hasMany(Panier::class, 'idShoes');
     }
+
+    public function hasSize(){
+        return $this->belongsToMany(size::class, ShoeLink::class);
+    }
 }

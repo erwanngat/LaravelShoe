@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Shoe;
+use App\Models\Size;
 use App\Livewire\Test;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\shoesController;
+use App\Models\ShoeLink;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,14 @@ Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
+
+Route::get('/test', function(){
+    $s = Size::find(3);
+    dd($s->hasShoe);
+    $s = Shoe::find(1);
+    dd($s->hasSize);
+});
+
 
 Route::middleware([
     'auth:sanctum',
