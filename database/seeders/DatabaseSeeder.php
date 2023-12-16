@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CartItem;
 use App\Models\User;
+use App\Models\Panier;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

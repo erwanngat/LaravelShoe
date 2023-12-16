@@ -60,8 +60,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function panier()
-    {
+    public function cart(){
         return $this->hasMany(Panier::class);
+    }
+
+    public function cartItem(){
+        return $this->hasManyThrough(CartItem::class, Panier::class, 'user_id' ,'cart_id' ,'id', 'id');
     }
 }

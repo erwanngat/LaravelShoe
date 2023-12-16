@@ -21,7 +21,8 @@ class ShoesController extends Controller
 
     public function showPanier()
     {
-        $shoes = Panier::where('idUser', auth()->user()->id)->get()->map->shoe;
+        $cart = auth()->user()->cart;
+        $shoes = $cart->flatMap->shoes;
         return view('shoes.panier')->with('shoes', $shoes);
     }
     public function create()

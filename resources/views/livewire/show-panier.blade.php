@@ -10,7 +10,6 @@
         </a>
     </div>
     <div class="w-full p-8 pt-16">
-        {{-- {{ auth()->user()->panier }}  --}}
         <div class="border p-4">
             <div class='text-center'>
                 <table class="w-full table-fixed">
@@ -18,9 +17,7 @@
                         <tr class="border-b">
                             <th class="p-2">Name</th>
                             <th class="p-2">Price</th>
-                            {{-- <th class="p-2">Size</th> --}}
                             <th class="p-2">Image</th>
-                            <th class="p-2">Number</th>
                             <th class="p-2">Action</th>
                         </tr>
                     </thead>
@@ -29,14 +26,11 @@
                             <tr class="border-b">
                                 <td class='p-2'>{{ $shoe->name }}</td>
                                 <td class='p-2'>{{ $shoe->price }} €</td>
-                                {{-- <td class='p-2'>{{ $shoe->size }}</td> --}}
                                 <td class='p-2 flex justify-center items-center'>
                                     <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}"
                                         class="max-w-xs max-h-32 object-scale-down">
                                 </td>
                                 <td class='p-2'>
-                                    {{ $shoe->panier->where('idUser', auth()->user()->id)->first()->number }}</td>
-                                <td>
                                     <button wire:click='removePanier({{ $shoe->id }})'>
                                         <i class="ri-close-line text-red-500 custom-width"></i>
                                     </button>
@@ -44,11 +38,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class='text-center text-2xl pt-4'>Your cart is empty</td>
-                            <tr>
+                                <td colspan="4" class='text-center text-2xl pt-4'>Your cart is empty</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
+
             </div>
         </div>
         @if ($total != 0)

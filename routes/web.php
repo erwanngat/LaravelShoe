@@ -2,10 +2,12 @@
 
 use App\Models\Shoe;
 use App\Models\Size;
+use App\Models\User;
 use App\Livewire\Test;
+use App\Models\Panier;
+use App\Models\ShoeLink;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\shoesController;
-use App\Models\ShoeLink;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +34,9 @@ Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 
 Route::get('/test', function(){
-    $s = Size::find(3);
-    dd($s->hasShoe);
-    $s = Shoe::find(1);
-    dd($s->hasSize);
+    $u = User::find(1);
+    $cart = $u->cart; 
+    dd($cart->flatMap->shoes);
 });
 
 

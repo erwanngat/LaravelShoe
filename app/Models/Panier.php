@@ -15,8 +15,11 @@ class Panier extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function shoe()
-    {
-        return $this->belongsTo(Shoe::class, 'idShoes');
-    }
+    public function item(){
+        return $this->hasMany(CartItem::class, 'cart_id');
+    }    
+
+    public function shoes(){
+        return $this->hasManyThrough(Shoe::class, CartItem::class, 'cart_id' ,'id' ,'id', 'shoe_id');
+    }    
 }

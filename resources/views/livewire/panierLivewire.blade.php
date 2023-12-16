@@ -45,7 +45,6 @@
                         <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}" class="w-full mb-2">
                         <p>Name : {{ $shoe->name }}</p>
                         <p>Price : {{ $shoe->price }} €</p>
-                        <p>Size : {{ $shoe->size }}</p>
                 </div>
                 </a>
             </div>

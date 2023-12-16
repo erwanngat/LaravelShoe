@@ -12,9 +12,9 @@ class Shoe extends Model
 
     protected $table = 'shoes';
 
-    public function panier()
+    public function inCart()
     {
-        return $this->hasMany(Panier::class, 'idShoes');
+        return $this->belongsToMany(Panier::class, CartItem::class,'shoe_id' ,'cart_id' ,'id', 'id');
     }
 
     public function hasSize(){

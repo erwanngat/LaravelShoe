@@ -3,9 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Shoe;
-use App\Models\Panier;
 use App\Models\User;
+use App\Models\Panier;
 use Livewire\Component;
+use App\Models\CartItem;
 
 class ShowPanier extends Component
 {
@@ -16,23 +17,27 @@ class ShowPanier extends Component
     {
         $this->shoes = $shoes;
         foreach($this->shoes as $shoe){
-            $this->total += $shoe->price * $shoe->panier->where('idUser', auth()->user()->id)->first()->number;
+            $this->total += $shoe->price;
         }
     }
 
     public function removePanier($idShoe){
-        $panier = Panier::where('idUser', auth()->user()->id)
-        ->where('idShoes', $idShoe)
-        ->first();
 
-        if ($panier && $panier->number > 1) {
-            $panier->decrement('number');
-        } else if ($panier) {
-            $panier->delete();
-        }
-        $this->shoes = Panier::where('idUser', auth()->user()->id)->get()->map->shoe;
-        $shoePrice = Shoe::where('id', $idShoe)->value('price');
-        $this->total -= $shoePrice;
+        $cartId = auth()->user()->cart->map->id->first();
+        $cartItem = CartItem::where('cart_id', $cartId)
+        ->where('shoe_id', $idShoe)
+        ->first();
+        
+        if ($cartItem) {
+            $cartItem->delete();
+            
+            $this->shoes = auth()->user()->cart->flatMap->shoes;
+    
+            $this->total = 0;
+            foreach ($this->shoes as $shoe) {
+                $this->total += $shoe->price;
+            }
+        }   
     }
 
     public function render()
