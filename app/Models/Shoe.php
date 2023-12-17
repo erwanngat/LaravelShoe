@@ -14,10 +14,18 @@ class Shoe extends Model
 
     public function inCart()
     {
-        return $this->belongsToMany(Panier::class, CartItem::class,'shoe_id' ,'cart_id' ,'id', 'id');
+        return $this->belongsToMany(Panier::class, CartItem::class, 'shoe_id', 'cart_id', 'id', 'id');
     }
 
-    public function hasSize(){
+    public function hasSize()
+    {
         return $this->belongsToMany(size::class, ShoeLink::class);
     }
+
+    public function hasQuantity(){
+        return $this->hasMany(ShoeLink::class);
+    }
+
+
+
 }

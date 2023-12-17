@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shoe;
+use App\Models\Size;
 use App\Models\Panier;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,6 @@ class ShoesController extends Controller
         request()->validate([
             'name' => 'required|min:1|max:50|regex:/^[A-Z][a-z]+$/',
             'price' => 'required|numeric|between:0,99999.99',
-            'size' => 'required|numeric|between:25,60',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
 
@@ -50,7 +50,6 @@ class ShoesController extends Controller
         $shoe = new Shoe();
         $shoe->name = request()->name;
         $shoe->price = request()->price;
-        $shoe->size = request()->size;
         $shoe->image = $imageName;
         $shoe->save();
         info("Shoe saved");
@@ -76,7 +75,6 @@ class ShoesController extends Controller
         request()->validate([
             'name' => 'required|min:1|max:50|regex:/^[A-Z][a-z]+$/',
             'price' => 'required|numeric|between:0,99999.99',
-            'size' => 'required|numeric|between:25,60',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
         if (request()->hasFile('image')) {
@@ -91,7 +89,6 @@ class ShoesController extends Controller
 
         $shoe->name = request()->name;
         $shoe->price = request()->price;
-        $shoe->size = request()->size;
         $shoe->save();
         return redirect('/shoes/' . $shoe->id);
     }
@@ -105,5 +102,12 @@ class ShoesController extends Controller
     {
         $shoe->delete();
         return redirect('/shoes');
+    }
+
+    public function shoeStock(Shoe $shoe)
+    {
+        $shoe = Shoe::find($shoe->id);
+        // dd($shoe->hasQuantity->map->quantity);
+        return view('shoes.shoeStock', compact('shoe'));
     }
 }

@@ -3,6 +3,7 @@
 use App\Models\Shoe;
 use App\Models\Size;
 use App\Models\User;
+use App\Models\Stock;
 use App\Livewire\Test;
 use App\Models\Panier;
 use App\Models\ShoeLink;
@@ -26,6 +27,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('/shoes/{shoe}/edit', [ShoesController::class, 'edit']);
     Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
     Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
+    Route::get('/shoes/{shoe}/stock', [ShoesController::class, 'shoeStock']);
 });
 
 Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
@@ -34,9 +36,8 @@ Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 
 Route::get('/test', function(){
-    $u = User::find(1);
-    $cart = $u->cart; 
-    dd($cart->flatMap->shoes);
+    $s = Shoe::find(1);
+    dd($s->hasQuantity->map->quantity);
 });
 
 

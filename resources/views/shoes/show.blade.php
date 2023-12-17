@@ -13,6 +13,13 @@
                 </a>
             </div>
         @endif
+        @if (auth()->user()->permissions == 1)
+            <div class="pt-2">
+                <a href="/shoes/{{ $shoe->id }}/stock">
+                    <x-button>Manage size</x-button>
+                </a>
+            </div>
+        @endif
         <x-show-one :shoe='$shoe' />
         @if (auth()->user()->permissions == 1)
             <div class="absolute top-0 left-4 mt-4 mr-4">

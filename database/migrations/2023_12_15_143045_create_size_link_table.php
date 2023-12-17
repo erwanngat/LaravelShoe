@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('shoe_id')->constrained('shoes');
             $table->foreignId('size_id')->constrained('sizes');
+            $table->Integer('quantity')->default('0');
             $table->timestamps();
         });
     }
