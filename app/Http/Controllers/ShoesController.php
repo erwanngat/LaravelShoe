@@ -54,6 +54,14 @@ class ShoesController extends Controller
         $shoe->image = $imageName;
         $shoe->save();
         info("Shoe saved");
+
+        for($i = 1; $i<= 15; $i++ ){
+            $l = new ShoeLink();
+                $l->shoe_id = $shoe->id;
+                $l->size_id = $i;
+                $l->quantity = 0;
+                $l->save();
+        }
         return  redirect('/shoes/' . $shoe->id)->with('success', 'Shoe created successfully!');
     }
 

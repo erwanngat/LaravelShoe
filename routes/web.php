@@ -37,12 +37,10 @@ Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 
 Route::get('/test', function(){
-    $s = ShoeLink::all();
-    // dd($s->map->isShoe);
+    $shoe = Shoe::find(1);
+    dd($shoe->hasQuantity);
 
-    foreach($s as $ss){
-        dump($ss->isShoe->name);
-    }
+
 });
 
 

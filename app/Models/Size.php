@@ -12,4 +12,8 @@ class Size extends Model
     public function hasShoe(){
         return $this->belongsToMany(Shoe::class, ShoeLink::class );
     }
+
+    public function getQuantity(){
+        return $this->hasMany(ShoeLink::class, 'size_id');
+    }
 }

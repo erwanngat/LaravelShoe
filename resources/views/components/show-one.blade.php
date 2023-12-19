@@ -10,17 +10,33 @@
             <p class="text-left">Description: Lipsum Lorem</p>
             <p class="text-left">Price: {{ $shoe->price }} €</p>
             <div class="flex space-x-1 pt-6">
-                <p class="text-2xl">Available size:</p>
+                <p class="text-2xl">Size:</p>
             </div>
             <div class="flex flex-wrap pt-6 space-x-4">
                 @php $count = 0; @endphp
-                @foreach ($shoe->hasSize->map->size as $size)
+                @foreach ($shoe->hasQuantity as $shoeLink)
                     @if ($count === 0)
             </div>
                     <div class="flex space-x-4 pt-1">
-                        <x-divSize/>{{ $size }}</div>
-                    @else
-                        <x-divSize/>{{ $size }}</div>
+                        <div class="flex flex-col items-start">    
+                            <x-divSize />{{ $shoeLink->isSize->size }}
+                            @if($shoeLink->quantity == 0)
+                                <p class="text-sm text-red-700">out of stock</p>
+                            </div>
+                                @else
+                                <p class="text-sm text-red-700">{{ $shoeLink->quantity }} left</p>
+                            </div>
+                            @endif</div>
+                        @else
+                        <div class="flex flex-col items-start">    
+                            <x-divSize />{{ $shoeLink->isSize->size }}
+                            @if($shoeLink->quantity == 0)
+                                <p class="text-sm text-red-700">out of stock</p>
+                            </div>
+                            @else
+                            <p class="text-sm text-red-700">{{ $shoeLink->quantity }} left</p>
+                        </div>
+                            @endif</div>
                     @endif
                     @php
                         $count++;
