@@ -13,12 +13,14 @@ class ShoeLinkSeeder extends Seeder
      */
     public function run(): void
     {
-
-        for($i = 0; $i<50; $i++){
+        for($ii = 1; $ii <=10; $ii++){
+            for($i = 1; $i<= 15; $i++ ){
             $l = new ShoeLink();
-            $l->shoe_id = fake()->numberBetween(1, 10);
-            $l->size_id = fake()->numberBetween(1, 15);
-            $l->save();
+                $l->shoe_id = $ii;
+                $l->size_id = $i;
+                $l->quantity = fake()->numberBetween(0, 10);
+                $l->save();
+            }
         }
     }
 }

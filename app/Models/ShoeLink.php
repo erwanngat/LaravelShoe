@@ -11,4 +11,12 @@ class ShoeLink extends Model
 
     protected $table = 'size_link';
 
+    public function isSize(){
+        return $this->belongsTo(Size::class, 'size_id');
+    }
+
+    public function isShoe(){
+        return $this->belongsTo(Shoe::class, 'shoe_id');
+    }
+
 }

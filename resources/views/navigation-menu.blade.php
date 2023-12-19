@@ -23,6 +23,11 @@
                             {{ __('Add a shoe') }}
                         </x-nav-link>
                     @endif
+                    @if (auth()->user()->permissions == 1)
+                        <x-nav-link href="{{ route('stock') }}" :active="request()->routeIs('stock')">
+                            {{ __('stock') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

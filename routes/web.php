@@ -28,6 +28,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::patch('/shoes/{shoe}', [ShoesController::class, 'update']);
     Route::delete('/shoes/{shoe}', [ShoesController::class, 'destroy']);
     Route::get('/shoes/{shoe}/stock', [ShoesController::class, 'shoeStock']);
+    Route::get('/shoes/stock', [ShoesController::class,'stock'])->name('stock');
 });
 
 Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
@@ -36,8 +37,12 @@ Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 
 Route::get('/test', function(){
-    $s = Shoe::find(1);
-    dd($s->hasQuantity->map->quantity);
+    $s = ShoeLink::all();
+    // dd($s->map->isShoe);
+
+    foreach($s as $ss){
+        dump($ss->isShoe->name);
+    }
 });
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shoe;
 use App\Models\Size;
 use App\Models\Panier;
+use App\Models\ShoeLink;
 use Illuminate\Http\Request;
 
 
@@ -107,7 +108,11 @@ class ShoesController extends Controller
     public function shoeStock(Shoe $shoe)
     {
         $shoe = Shoe::find($shoe->id);
-        // dd($shoe->hasQuantity->map->quantity);
         return view('shoes.shoeStock', compact('shoe'));
     }
+
+    public function stock(){
+        $stocks = ShoeLink::all();
+        return view('shoes.stock', compact('stocks'));
+        }
 }
