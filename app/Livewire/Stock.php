@@ -35,7 +35,7 @@ class Stock extends Component
             $this->addStockField = false;
         }
     }
-    
+
     public function toggleRemoveStockField($stock_id)
     {
         if (!$this->removeStockField || $this->selectedStock_id !== $stock_id) {
@@ -45,7 +45,7 @@ class Stock extends Component
             $this->removeStockField = false;
         }
     }
-    
+
     public function toggleSetStockField($stock_id)
     {
         if (!$this->setStockField || $this->selectedStock_id !== $stock_id) {
@@ -64,7 +64,6 @@ class Stock extends Component
         $stock->quantity = $newQuantity;
         $stock->save();
 
-        $this->stocks = ShoeLink::all();
         $this->stockValue = null;
         $this->addStockField = false;
     }

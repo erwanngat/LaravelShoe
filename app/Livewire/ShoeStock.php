@@ -63,7 +63,13 @@ class ShoeStock extends Component
         $shoeStock->quantity = $newQuantity;
         $shoeStock->save();
 
-        $this->shoeStocks = ShoeLink::all();
+        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
+            if ($item->id === $shoeStock->id) {
+                return $shoeStock;
+            }
+            return $item;
+        });
+
         $this->stockValue = null;
         $this->addStockField = false;
     }
@@ -79,7 +85,13 @@ class ShoeStock extends Component
             $shoeStock->quantity = $newQuantity;
             $shoeStock->save();
 
-            $this->shoeStocks = ShoeLink::all();
+            $this->shoeStocks->transform(function ($item) use ($shoeStock) {
+                if ($item->id === $shoeStock->id) {
+                    return $shoeStock;
+                }
+                return $item;
+            });
+
             $this->stockValue = null;
             $this->removeStockField = false;
         }
@@ -95,7 +107,12 @@ class ShoeStock extends Component
             $shoeStock->quantity = $newQuantity;
             $shoeStock->save();
 
-            $this->shoeStocks = ShoeLink::all();
+            $this->shoeStocks->transform(function ($item) use ($shoeStock) {
+                if ($item->id === $shoeStock->id) {
+                    return $shoeStock;
+                }
+                return $item;
+            });
             $this->stockValue = null;
             $this->removeStockField = false;
         }

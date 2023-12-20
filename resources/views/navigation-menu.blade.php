@@ -15,9 +15,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('shoes')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
-                        {{ __('Cart') }}
-                    </x-nav-link>
+                    @if (auth()->user()->permissions == 0)
+                        <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                            {{ __('Cart') }}
+                        </x-nav-link>
+                    @endif
                     @if (auth()->user()->permissions == 1)
                         <x-nav-link href="{{ route('create') }}" :active="request()->routeIs('create')">
                             {{ __('Add a shoe') }}

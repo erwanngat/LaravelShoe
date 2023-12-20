@@ -18,7 +18,7 @@
                 <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
                 </th>
             </tr>
-        </thead>
+        </thead> 
         <tbody class="divide-y divide-gray-200">
             @foreach ($stocks as $stock)
                 <tr>

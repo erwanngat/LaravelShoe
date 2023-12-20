@@ -16,7 +16,7 @@
         @if (auth()->user()->permissions == 1)
             <div class="pt-2">
                 <a href="/shoes/{{ $shoe->id }}/stock">
-                    <x-button>Manage size</x-button>
+                    <x-button>Manage shoe stock</x-button>
                 </a>
             </div>
         @endif
