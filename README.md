@@ -10,6 +10,9 @@ It includes:
 - Livewire for interactive functionalities
 - Data validation for ensuring accuracy
 - Migrations and Seeders Management
+- Cart management
+- Size management
+- Stock management
 
 ## Installation requirements
 - Composer
