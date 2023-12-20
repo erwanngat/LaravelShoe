@@ -64,6 +64,7 @@ class Stock extends Component
         $stock->quantity = $newQuantity;
         $stock->save();
 
+        $this->stocks = ShoeLink::all();
         $this->stockValue = null;
         $this->addStockField = false;
     }

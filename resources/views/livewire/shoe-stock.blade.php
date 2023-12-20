@@ -22,17 +22,17 @@
                     <td><x-button wire:click="toggleMenuAction({{ $shoeStock->id }})" class="w-auto">Manage
                             stock</x-button>
                         @if ($menu && $selectedStock_id === $shoeStock->id)
-                            <div class="mt-2 flex justify-center">
+                            <div class="flex justify-center">
                                 <div class="mt-2 bg-white shadow-md rounded-md w-36">
                                     <span wire:click='toggleAddStockField({{ $shoeStock->id }})'
-                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Add
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36 text-base">Add
                                         stock</span>
                                     @if ($addStockField && $selectedStock_id === $shoeStock->id)
                                         <input class="w-36" type="number" placeholder="amount to add"
                                             wire:model="stockValue" wire:keydown.enter="addStock({{ $shoeStock->id }})">
                                     @endif
                                     <span wire:click='toggleRemoveStockField({{ $shoeStock->id }})'
-                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Remove
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36 text-base">Remove
                                         stock</span>
                                     @if ($removeStockField && $selectedStock_id === $shoeStock->id)
                                         <input class="w-36" type="number" placeholder="amount to remove"
@@ -40,7 +40,7 @@
                                             wire:keydown.enter="removeStock({{ $shoeStock->id }})">
                                     @endif
                                     <span wire:click='toggleSetStockField({{ $shoeStock->id }})'
-                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Set
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36 text-base">Set
                                         stock</span>
                                     @if ($setStockField && $selectedStock_id === $shoeStock->id)
                                         <input class="w-36" type="number" placeholder="amount to set"

@@ -38,13 +38,13 @@
                                                 @if ($menuSize && $selectedShoe_id === $shoe->id)
                                                     @foreach ($shoeSizes as $shoeSize)
                                                         @if ($shoeSize->quantity != 0)
-                                                        <div class="flex justify-center">
-                                                            <div class="bg-white shadow-md rounded-md w-36">
-                                                                <span
-                                                                    wire:click='chooseSize({{ $shoeSize->isSize->size }}, {{ $shoe->id }})'
-                                                                    class="block border border-gray-300 py-1 px-4 hover:bg-gray-100 cursor-pointer w-36">{{ $shoeSize->isSize->size }}</span>
+                                                            <div class="flex justify-center">
+                                                                <div class="bg-white shadow-md rounded-md w-36">
+                                                                    <span
+                                                                        wire:click='chooseSize({{ $shoeSize->isSize->size }}, {{ $shoe->id }})'
+                                                                        class="block border border-gray-300 py-1 px-4 hover:bg-gray-100 cursor-pointer w-36">{{ $shoeSize->isSize->size }}</span>
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                         @endif
                                                     @endforeach
                                                 @endif
@@ -61,12 +61,10 @@
                                         <i class="ri-close-line text-red-500 custom-width"></i>
                                     </button>
                                 </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class='text-center text-2xl pt-4'>Your cart is empty</td>
-                            </tr>
+                            @empty
+                                <td colspan="5" class='text-center text-2xl pt-4'>Your cart is empty</td>
                         @endforelse
+                        </tr>
                     </tbody>
                 </table>
 
