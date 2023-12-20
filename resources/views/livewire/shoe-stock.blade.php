@@ -1,22 +1,64 @@
 <div>
-    <div class="overflow-x-auto p-8">
-        <table class="min-w-full table-auto bg-white border border-gray-200">
-            <thead>
-                <tr class="bg-gray-50">
-                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
-                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                @foreach($shoe->hasSize as $index => $size)
-                    <tr>
-                        <td class="px-4 py-2 whitespace-nowrap">{{ $size->size }}</td>
-                        @if(isset($shoe->hasQuantity[$index]))
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $shoe->hasQuantity[$index]->quantity }}</td>
-                        @endif
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class='m-4 p-4'>
+        <p class='text-xl'>Search by reference</p>
+        <div class="search-container mb-6 w-64 pl-6">
+            <input type="number" id="searchInput" placeholder="Search..."
+                class="w-1/4 p-2 border border-gray-300 rounded-md" wire:model="reference" wire:keydown.enter="search">
+        </div>
     </div>
+    <table class="w-full bg-white border border-gray-200 text-center p-6 text-xl">
+        <thead>
+            <tr class="bg-gray-50">
+                <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Reference
+                </th>
+                <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity
+                </th>
+                <th class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            @foreach ($shoeStocks as $shoeStock)
+                <tr>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ $shoeStock->id }}</td>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ $shoeStock->isShoe->name }}</td>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ $shoeStock->isSize->size }}</td>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ $shoeStock->quantity }}</td>
+                    <td><x-button wire:click="toggleMenuAction({{ $shoeStock->id }})" class="w-auto">Manage
+                            stock</x-button>
+                        @if ($menu && $selectedStock_id === $shoeStock->id)
+                            <div class="mt-2 flex justify-center">
+                                <div class="mt-2 bg-white shadow-md rounded-md w-36">
+                                    <span wire:click='toggleAddStockField({{ $shoeStock->id }})'
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Add
+                                        stock</span>
+                                    @if ($addStockField && $selectedStock_id === $shoeStock->id)
+                                        <input class="w-36" type="number" placeholder="amount to add"
+                                            wire:model="stockValue" wire:keydown.enter="addStock({{ $shoeStock->id }})">
+                                    @endif
+                                    <span wire:click='toggleRemoveStockField({{ $shoeStock->id }})'
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Remove
+                                        stock</span>
+                                    @if ($removeStockField && $selectedStock_id === $shoeStock->id)
+                                        <input class="w-36" type="number" placeholder="amount to remove"
+                                            wire:model="stockValue"
+                                            wire:keydown.enter="removeStock({{ $shoeStock->id }})">
+                                    @endif
+                                    <span wire:click='toggleSetStockField({{ $shoeStock->id }})'
+                                        class="block border border-gray-300 py-2 px-4 hover:bg-gray-100 cursor-pointer w-36">Set
+                                        stock</span>
+                                    @if ($setStockField && $selectedStock_id === $shoeStock->id)
+                                        <input class="w-36" type="number" placeholder="amount to set"
+                                            wire:model="stockValue" wire:keydown.enter="setStock({{ $shoeStock->id }})">
+                                    @endif
+                                </div>
+                            </div>
+                    </td>
+            @endif
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>

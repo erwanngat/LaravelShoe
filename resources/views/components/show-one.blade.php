@@ -18,7 +18,7 @@
                     @if ($count === 0)
             </div>
                     <div class="flex space-x-4 pt-1">
-                        <div class="flex flex-col items-start">    
+                        <div class="flex flex-col items-start">
                             <x-divSize />{{ $shoeLink->isSize->size }}
                             @if($shoeLink->quantity == 0)
                                 <p class="text-sm text-red-700">out of stock</p>
@@ -28,7 +28,7 @@
                             </div>
                             @endif</div>
                         @else
-                        <div class="flex flex-col items-start">    
+                        <div class="flex flex-col items-start">
                             <x-divSize />{{ $shoeLink->isSize->size }}
                             @if($shoeLink->quantity == 0)
                                 <p class="text-sm text-red-700">out of stock</p>

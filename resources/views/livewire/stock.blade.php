@@ -1,9 +1,9 @@
 <div>
-    <div class='m-4'>
+    <div class='m-4 p-4'>
         <p class='text-xl'>Search by reference</p>
         <div class="search-container mb-6 w-64 pl-6">
             <input type="number" id="searchInput" placeholder="Search..."
-                class="w-1/2 p-2 border border-gray-300 rounded-md" wire:model="reference" wire:keydown.enter="search">
+                class="w-1/4 p-2 border border-gray-300 rounded-md" wire:model="reference" wire:keydown.enter="search">
         </div>
     </div>
     <table class="w-full bg-white border border-gray-200 text-center p-6 text-xl">
@@ -19,7 +19,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200"> 
+        <tbody class="divide-y divide-gray-200">
             @foreach ($stocks as $stock)
                 <tr>
                     <td class="px-4 py-2 whitespace-nowrap">{{ $stock->id }}</td>

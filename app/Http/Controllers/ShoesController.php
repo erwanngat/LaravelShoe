@@ -116,7 +116,8 @@ class ShoesController extends Controller
     public function shoeStock(Shoe $shoe)
     {
         $shoe = Shoe::find($shoe->id);
-        return view('shoes.shoeStock', compact('shoe'));
+        $shoeStocks = $shoe->hasQuantity;
+        return view('shoes.shoeStock', compact('shoeStocks'));
     }
 
     public function stock(){

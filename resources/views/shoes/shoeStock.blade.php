@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:shoe-stock :shoe="$shoe" />
+    <livewire:shoe-stock :shoeStocks="$shoeStocks" />
 </x-app-layout>

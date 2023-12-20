@@ -17,6 +17,7 @@
                         <tr class="border-b">
                             <th class="p-2">Name</th>
                             <th class="p-2">Price</th>
+                            <th class="p-2">Size</th>
                             <th class="p-2">Image</th>
                             <th class="p-2">Action</th>
                         </tr>
@@ -26,6 +27,31 @@
                             <tr class="border-b">
                                 <td class='p-2'>{{ $shoe->name }}</td>
                                 <td class='p-2'>{{ $shoe->price }} €</td>
+                                <td class='p-2'>
+                                    @foreach ($cartItems as $cartItem)
+                                        @if ($cartItem->shoe_id == $shoe->id)
+                                            @if ($cartItem->size)
+                                                {{ $cartItem->size }}
+                                            @else
+                                                <x-button wire:click="toggleMenuSize({{ $shoe->id }})"
+                                                    class="w-auto">Choose a size</x-button>
+                                                @if ($menuSize && $selectedShoe_id === $shoe->id)
+                                                    @foreach ($shoeSizes as $shoeSize)
+                                                        @if ($shoeSize->quantity != 0)
+                                                        <div class="flex justify-center">
+                                                            <div class="bg-white shadow-md rounded-md w-36">
+                                                                <span
+                                                                    wire:click='chooseSize({{ $shoeSize->isSize->size }}, {{ $shoe->id }})'
+                                                                    class="block border border-gray-300 py-1 px-4 hover:bg-gray-100 cursor-pointer w-36">{{ $shoeSize->isSize->size }}</span>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td class='p-2 flex justify-center items-center'>
                                     <img src="/images/{{ $shoe->image }}" alt="{{ $shoe->name }}"
                                         class="max-w-xs max-h-32 object-scale-down">

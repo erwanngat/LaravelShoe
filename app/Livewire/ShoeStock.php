@@ -3,10 +3,11 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\ShoeLink;
 
 class ShoeStock extends Component
 {
-    public $shoe;
+    public $shoeStocks;
     public $menu = false;
     public $addStockField = false;
     public $removeStockField = false;
@@ -33,7 +34,7 @@ class ShoeStock extends Component
             $this->addStockField = false;
         }
     }
-    
+
     public function toggleRemoveStockField($stock_id)
     {
         if (!$this->removeStockField || $this->selectedStock_id !== $stock_id) {
@@ -43,7 +44,7 @@ class ShoeStock extends Component
             $this->removeStockField = false;
         }
     }
-    
+
     public function toggleSetStockField($stock_id)
     {
         if (!$this->setStockField || $this->selectedStock_id !== $stock_id) {
@@ -56,29 +57,29 @@ class ShoeStock extends Component
 
     public function addStock($stock_id)
     {
-        $stock = ShoeLink::find($stock_id);
-        $quantity = $stock->quantity;
+        $shoeStock = ShoeLink::find($stock_id);
+        $quantity = $shoeStock->quantity;
         $newQuantity = $quantity + $this->stockValue;
-        $stock->quantity = $newQuantity;
-        $stock->save();
+        $shoeStock->quantity = $newQuantity;
+        $shoeStock->save();
 
-        $this->stocks = ShoeLink::all();
+        $this->shoeStocks = ShoeLink::all();
         $this->stockValue = null;
         $this->addStockField = false;
     }
 
     public function removeStock($stock_id)
     {
-        $stock = ShoeLink::find($stock_id);
-        $quantity = $stock->quantity;
+        $shoeStock = ShoeLink::find($stock_id);
+        $quantity = $shoeStock->quantity;
         $newQuantity = $quantity - $this->stockValue;
         if ($newQuantity < 0) {
             echo 'la quantité ne peux etre négative';
         } else {
-            $stock->quantity = $newQuantity;
-            $stock->save();
+            $shoeStock->quantity = $newQuantity;
+            $shoeStock->save();
 
-            $this->stocks = ShoeLink::all();
+            $this->shoeStocks = ShoeLink::all();
             $this->stockValue = null;
             $this->removeStockField = false;
         }
@@ -86,15 +87,15 @@ class ShoeStock extends Component
 
     public function setStock($stock_id)
     {
-        $stock = ShoeLink::find($stock_id);
+        $shoeStock = ShoeLink::find($stock_id);
         $newQuantity = $this->stockValue;
         if ($newQuantity < 0) {
             echo 'la quantité ne peux etre négative';
         } else {
-            $stock->quantity = $newQuantity;
-            $stock->save();
+            $shoeStock->quantity = $newQuantity;
+            $shoeStock->save();
 
-            $this->stocks = ShoeLink::all();
+            $this->shoeStocks = ShoeLink::all();
             $this->stockValue = null;
             $this->removeStockField = false;
         }
