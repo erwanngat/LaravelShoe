@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shoe;
 use App\Models\Size;
 use App\Models\Panier;
+use App\Models\CartItem;
 use App\Models\ShoeLink;
 use Illuminate\Http\Request;
 
@@ -123,5 +124,29 @@ class ShoesController extends Controller
     public function stock(){
         $stocks = ShoeLink::all();
         return view('shoes.stock', compact('stocks'));
+    }
+
+    public function buy(){
+        $cart_id = auth()->user()->cart->map->id->first();
+        $cartItems = CartItem::where('cart_id', $cart_id)
+        ->get();
+        foreach($cartItems as $cartItem){
+            $size = $cartItem->size;
+            $size = Size::where('size', $size)
+            ->first();
+            $size_id = $size->id;
+            $shoe_id = $cartItem->shoe_id;
+            $shoeStock = ShoeLink::where('shoe_id', $shoe_id)
+            ->where('size_id', $size_id)
+            ->first();
+            $shoeQuantity = $shoeStock->quantity;
+            $newShoeQuantity = $shoeQuantity - 1;
+
+            $shoeStock->quantity = $newShoeQuantity;
+            $shoeStock->save();
+
+            $cartItem->delete();
         }
+        return redirect('shoes');
+    }
 }

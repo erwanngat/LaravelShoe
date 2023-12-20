@@ -35,12 +35,11 @@ Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
+Route::post('/buy', [ShoesController::class, 'buy']);
 
 Route::get('/test', function(){
     $shoe = Shoe::find(1);
     dd($shoe->hasQuantity);
-
-
 });
 
 

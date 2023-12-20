@@ -3,7 +3,7 @@
         <div class="justify-between p-8">
             <h1 class="text-4xl text-center">Buy your shoes</h1>
         </div>
-        <form action="/shoes" method="post">
+        <form action="/buy" method="post">
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-bold">Card name:</label>
