@@ -75,15 +75,14 @@ class Stock extends Component
         $quantity = $stock->quantity;
         $newQuantity = $quantity - $this->stockValue;
         if ($newQuantity < 0) {
-            echo 'la quantité ne peux etre négative';
-        } else {
-            $stock->quantity = $newQuantity;
-            $stock->save();
-
-            $this->stocks = ShoeLink::all();
-            $this->stockValue = null;
-            $this->removeStockField = false;
+            $newQuantity = 0;
         }
+        $stock->quantity = $newQuantity;
+        $stock->save();
+
+        $this->stocks = ShoeLink::all();
+        $this->stockValue = null;
+        $this->removeStockField = false;
     }
 
     public function setStock($stock_id)
@@ -91,15 +90,14 @@ class Stock extends Component
         $stock = ShoeLink::find($stock_id);
         $newQuantity = $this->stockValue;
         if ($newQuantity < 0) {
-            echo 'la quantité ne peux etre négative';
-        } else {
-            $stock->quantity = $newQuantity;
-            $stock->save();
-
-            $this->stocks = ShoeLink::all();
-            $this->stockValue = null;
-            $this->removeStockField = false;
+            $newQuantity = 0;
         }
+        $stock->quantity = $newQuantity;
+        $stock->save();
+
+        $this->stocks = ShoeLink::all();
+        $this->stockValue = null;
+        $this->removeStockField = false;
     }
 
     public function search(){

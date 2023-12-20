@@ -80,21 +80,21 @@ class ShoeStock extends Component
         $quantity = $shoeStock->quantity;
         $newQuantity = $quantity - $this->stockValue;
         if ($newQuantity < 0) {
-            echo 'la quantité ne peux etre négative';
-        } else {
-            $shoeStock->quantity = $newQuantity;
-            $shoeStock->save();
-
-            $this->shoeStocks->transform(function ($item) use ($shoeStock) {
-                if ($item->id === $shoeStock->id) {
-                    return $shoeStock;
-                }
-                return $item;
-            });
-
-            $this->stockValue = null;
-            $this->removeStockField = false;
+            $newQuantity = 0;
         }
+        $shoeStock->quantity = $newQuantity;
+        $shoeStock->save();
+
+        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
+            if ($item->id === $shoeStock->id) {
+                return $shoeStock;
+            }
+            return $item;
+        });
+
+        $this->stockValue = null;
+        $this->removeStockField = false;
+
     }
 
     public function setStock($stock_id)
@@ -102,20 +102,20 @@ class ShoeStock extends Component
         $shoeStock = ShoeLink::find($stock_id);
         $newQuantity = $this->stockValue;
         if ($newQuantity < 0) {
-            echo 'la quantité ne peux etre négative';
-        } else {
-            $shoeStock->quantity = $newQuantity;
-            $shoeStock->save();
-
-            $this->shoeStocks->transform(function ($item) use ($shoeStock) {
-                if ($item->id === $shoeStock->id) {
-                    return $shoeStock;
-                }
-                return $item;
-            });
-            $this->stockValue = null;
-            $this->removeStockField = false;
+            $newQuantity = 0;
         }
+        $shoeStock->quantity = $newQuantity;
+        $shoeStock->save();
+
+        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
+            if ($item->id === $shoeStock->id) {
+                return $shoeStock;
+            }
+            return $item;
+        });
+        $this->stockValue = null;
+        $this->removeStockField = false;
+
     }
     public function render()
     {
