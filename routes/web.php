@@ -1,12 +1,5 @@
 <?php
 
-use App\Models\Shoe;
-use App\Models\Size;
-use App\Models\User;
-use App\Models\Stock;
-use App\Livewire\Test;
-use App\Models\Panier;
-use App\Models\ShoeLink;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\shoesController;
 
@@ -36,12 +29,6 @@ Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
 Route::post('/buy', [ShoesController::class, 'buy']);
-
-Route::get('/test', function(){
-    $shoe = Shoe::find(1);
-    dd($shoe->hasQuantity);
-});
-
 
 Route::middleware([
     'auth:sanctum',

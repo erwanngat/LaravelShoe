@@ -35,7 +35,6 @@ class ShoesController extends Controller
 
     public function store()
     {
-        // valider les données
         request()->validate([
             'name' => 'required|min:1|max:50|regex:/^[A-Z][a-z]+$/',
             'price' => 'required|numeric|between:0,99999.99',
@@ -54,7 +53,6 @@ class ShoesController extends Controller
         $shoe->price = request()->price;
         $shoe->image = $imageName;
         $shoe->save();
-        info("Shoe saved");
 
         for($i = 1; $i<= 15; $i++ ){
             $l = new ShoeLink();

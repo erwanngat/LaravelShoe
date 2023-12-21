@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Shoe;
+use App\Models\Size;
 use App\Models\ShoeLink;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ShoeLinkSeeder extends Seeder
 {
@@ -13,11 +15,14 @@ class ShoeLinkSeeder extends Seeder
      */
     public function run(): void
     {
-        for($ii = 1; $ii <=10; $ii++){
-            for($i = 1; $i<= 15; $i++ ){
-            $l = new ShoeLink();
-                $l->shoe_id = $ii;
-                $l->size_id = $i;
+        $shoes = Shoe::all();
+        $sizes = Size::all();
+
+        foreach($shoes as $shoe){
+            foreach($sizes as $size){
+                $l = new ShoeLink();
+                $l->shoe_id = $shoe->id;
+                $l->size_id = $size->id;
                 $l->quantity = fake()->numberBetween(0, 10);
                 $l->save();
             }

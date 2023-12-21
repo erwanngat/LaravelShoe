@@ -25,7 +25,4 @@ class Shoe extends Model
     public function hasQuantity(){
         return $this->hasMany(ShoeLink::class);
     }
-
-
-
 }

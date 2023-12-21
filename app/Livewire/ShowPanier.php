@@ -3,8 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Shoe;
-use App\Models\User;
-use App\Models\Panier;
 use Livewire\Component;
 use App\Models\CartItem;
 

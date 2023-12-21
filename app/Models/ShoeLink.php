@@ -18,5 +18,4 @@ class ShoeLink extends Model
     public function isShoe(){
         return $this->belongsTo(Shoe::class, 'shoe_id');
     }
-
 }
