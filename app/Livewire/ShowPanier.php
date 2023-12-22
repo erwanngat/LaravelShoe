@@ -67,7 +67,6 @@ class ShowPanier extends Component
 
         $cartItem->size = $size;
         $cartItem->save();
-
     }
 
     public function render()

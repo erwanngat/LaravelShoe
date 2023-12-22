@@ -3,7 +3,7 @@
         <p class='text-xl'>Search by reference</p>
         <div class="search-container mb-6 w-64 pl-6">
             <input type="number" id="searchInput" placeholder="Search..."
-                class="w-1/4 p-2 border border-gray-300 rounded-md" wire:model="reference" wire:keydown.enter="search">
+                class="w-1/2 p-2 border border-gray-300 rounded-md" wire:model="reference" wire:keydown.enter="search">
         </div>
     </div>
     <table class="w-full bg-white border border-gray-200 text-center p-6 text-xl">

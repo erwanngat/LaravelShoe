@@ -75,11 +75,13 @@
                 @endphp
                 @endforeach
             </div>
-            <div class='pt-8'>
-                @if ($menuCart)
-                    <x-button wire:click='addToCart' class='justify-end ml-64'>Add to cart</x-button>
-                @endif
-            </div>
+            @if (auth()->user()->permissions == 0)
+                <div class='pt-8'>
+                    @if ($menuCart)
+                        <x-button wire:click='addToCart' class='justify-end ml-64'>Add to cart</x-button>
+                    @endif
+                </div>
+            @endif
         </div>
 
 
