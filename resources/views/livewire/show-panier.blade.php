@@ -72,13 +72,36 @@
 
             </div>
         </div>
+
         @if ($total != 0)
+            @php
+                $allShoesHaveSize = true;
+            @endphp
+            @foreach ($shoes as $shoe)
+                @php
+                    $shoeHasSize = false;
+                @endphp
+                @foreach ($cartItems as $cartItem)
+                    @if ($cartItem->shoe_id == $shoe->id && $cartItem->size)
+                        @php
+                            $shoeHasSize = true;
+                        @endphp
+                    @endif
+                @endforeach
+                @if (!$shoeHasSize)
+                    @php
+                        $allShoesHaveSize = false;
+                    @endphp
+                @endif
+            @endforeach
             <p class='text-right text-2xl pt-24 pr-56'>Total : {{ $total }} €</p>
-            <div class='text-right text-2xl pt-2 pr-20'>
-                <a href="{{ route('pay') }}">
-                    <x-button>Pay</x-button>
-                </a>
-            </div>
+            @if ($allShoesHaveSize)
+                <div class='text-right text-2xl pt-2 pr-20'>
+                    <a href="{{ route('pay') }}">
+                        <x-button>Pay</x-button>
+                    </a>
+                </div>
+            @endif
         @endif
     </div>
 </div>
