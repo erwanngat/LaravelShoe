@@ -24,9 +24,10 @@ class PanierLivewire extends Component
     public function addPanier($shoe_id)
     {
         $user = auth()->user();
+        
         if ($user->cart->isEmpty()) {
             $newCart = new Panier();
-            $newCart->user_id = auth()->user()->id;
+            $newCart->user_id = $user->id;
             $newCart->save();
 
             $cart_id = $newCart->id;
@@ -43,11 +44,7 @@ class PanierLivewire extends Component
 
     public function toggleMenu()
     {
-        if (!$this->menu) {
-            $this->menu = true;
-        } else {
-            $this->menu = false;
-        }
+        $this->menu = !$this->menu;
     }
 
     public function sortAlpha()
@@ -70,24 +67,17 @@ class PanierLivewire extends Component
 
     public function render()
     {
-        if ($this->trie == 1) {
-            $shoes = Shoe::orderBy('name', 'asc')->get();
-            $this->shoes = $shoes;
-        } elseif ($this->trie == 2) {
-            $shoes = Shoe::orderBy('price', 'asc')->get();
-            $this->shoes = $shoes;
-        } elseif ($this->trie == 3) {
-            $shoes = Shoe::orderBy('price', 'desc')->get();
-            $this->shoes = $shoes;
-        }
+        $shoes = Shoe::query();
 
-        $tot = 0;
-        $panierItems = auth()->user()->cartItem;
-        foreach ($panierItems as $item) {
-            $number = $item->number;
-            $tot += $number;
+        if ($this->trie == 1) {
+            $shoes = $shoes->orderBy('name', 'asc');
+        } elseif ($this->trie == 2) {
+            $shoes = $shoes->orderBy('price', 'asc');
+        } elseif ($this->trie == 3) {
+            $shoes = $shoes->orderBy('price', 'desc');
         }
-        $this->count = $tot;
+        $this->shoes = $shoes->get();
+
         $this->count = auth()->user()->cartItem->count();
 
         return view('livewire.panierLivewire');

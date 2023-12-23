@@ -17,106 +17,104 @@ class ShoeStock extends Component
 
     public function toggleMenuAction($stock_id)
     {
-        if (!$this->menu || $this->selectedStock_id !== $stock_id) {
-            $this->menu = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->menu = false;
-        }
+        $this->menu = (!$this->menu || $this->selectedStock_id !== $stock_id) ? true : false;
+        $this->selectedStock_id = $this->menu ? $stock_id : null;
+        $this->addStockField = false;
+        $this->removeStockField = false;
+        $this->setStockField = false;
     }
 
     public function toggleAddStockField($stock_id)
     {
-        if (!$this->addStockField || $this->selectedStock_id !== $stock_id) {
-            $this->addStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->addStockField = false;
+        $this->addStockField = (!$this->addStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->addStockField ? $stock_id : null;
         }
+        $this->removeStockField = false;
+        $this->setStockField = false;
     }
 
     public function toggleRemoveStockField($stock_id)
     {
-        if (!$this->removeStockField || $this->selectedStock_id !== $stock_id) {
-            $this->removeStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->removeStockField = false;
+        $this->removeStockField = (!$this->removeStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->removeStockField ? $stock_id : null;
         }
+        $this->addStockField = false;
+        $this->setStockField = false;
     }
 
     public function toggleSetStockField($stock_id)
     {
-        if (!$this->setStockField || $this->selectedStock_id !== $stock_id) {
-            $this->setStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->setStockField = false;
+        $this->setStockField = (!$this->setStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->setStockField ? $stock_id : null;
         }
+        $this->addStockField = false;
+        $this->removeStockField = false;
     }
 
     public function addStock($stock_id)
     {
         $shoeStock = ShoeLink::find($stock_id);
-        $quantity = $shoeStock->quantity;
-        $newQuantity = $quantity + $this->stockValue;
-        $shoeStock->quantity = $newQuantity;
-        $shoeStock->save();
 
-        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
-            if ($item->id === $shoeStock->id) {
-                return $shoeStock;
+        if ($this->stockValue > 0) {
+            $shoeStock->increment('quantity', $this->stockValue);
+
+            $key = $this->shoeStocks->search(function ($item) use ($shoeStock) {
+                return $item->id === $shoeStock->id;
+            });
+
+            if ($key !== false) {
+                $this->shoeStocks[$key] = $shoeStock;
             }
-            return $item;
-        });
-
+        }
         $this->stockValue = null;
-        $this->addStockField = false;
     }
 
     public function removeStock($stock_id)
     {
         $shoeStock = ShoeLink::find($stock_id);
-        $quantity = $shoeStock->quantity;
-        $newQuantity = $quantity - $this->stockValue;
-        if ($newQuantity < 0) {
-            $newQuantity = 0;
-        }
-        $shoeStock->quantity = $newQuantity;
-        $shoeStock->save();
 
-        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
-            if ($item->id === $shoeStock->id) {
-                return $shoeStock;
+        if ($this->stockValue > 0) {
+            $shoeStock->decrement('quantity', $this->stockValue);
+
+            $key = $this->shoeStocks->search(function ($item) use ($shoeStock) {
+                return $item->id === $shoeStock->id;
+            });
+
+            if ($key !== false) {
+                $this->shoeStocks[$key] = $shoeStock;
             }
-            return $item;
-        });
-
+        }
+        if($shoeStock->quantity < 0){
+            $shoeStock->quantity = 0;
+        }
         $this->stockValue = null;
-        $this->removeStockField = false;
-
     }
 
     public function setStock($stock_id)
     {
+
         $shoeStock = ShoeLink::find($stock_id);
-        $newQuantity = $this->stockValue;
-        if ($newQuantity < 0) {
-            $newQuantity = 0;
-        }
-        $shoeStock->quantity = $newQuantity;
-        $shoeStock->save();
 
-        $this->shoeStocks->transform(function ($item) use ($shoeStock) {
-            if ($item->id === $shoeStock->id) {
-                return $shoeStock;
+        if ($this->stockValue >= 0) {
+            $shoeStock->update(['quantity' => $this->stockValue]);
+
+            $key = $this->shoeStocks->search(function ($item) use ($shoeStock) {
+                return $item->id === $shoeStock->id;
+            });
+
+            if ($key !== false) {
+                $this->shoeStocks[$key] = $shoeStock;
             }
-            return $item;
-        });
+        }
+        if($shoeStock->quantity < 0){
+            $shoeStock->quantity = 0;
+        }
         $this->stockValue = null;
-        $this->removeStockField = false;
-
     }
+    
     public function render()
     {
         return view('livewire.shoe-stock');

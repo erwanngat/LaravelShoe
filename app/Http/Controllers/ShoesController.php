@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Shoe;
 use App\Models\Size;
-use App\Models\Panier;
 use App\Models\CartItem;
 use App\Models\ShoeLink;
 use Illuminate\Http\Request;
@@ -15,11 +14,8 @@ class ShoesController extends Controller
     public function index()
     {
         $shoes = Shoe::all();
-        if (auth()->user()) {
-            return view('shoes.index', compact('shoes'));
-        } else {
-            return view('shoes.indexUser', compact('shoes'));
-        }
+        $view = auth()->user() ? 'shoes.index' : 'shoes.indexUser';
+        return view($view, compact('shoes'));
     }
 
     public function showPanier()
@@ -41,36 +37,32 @@ class ShoesController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
 
-        $imageName = request()->file('image')->getClientOriginalName();
-        $existingImage = Shoe::where('image', $imageName)->exists();
-        if ($existingImage) {
-            $imageName = time() . '_' . $imageName;
-        }
+        $imageName = time() . '_' . request()->file('image')->getClientOriginalName();
         request()->file('image')->move(public_path('images'), $imageName);
 
-        $shoe = new Shoe();
-        $shoe->name = request()->name;
-        $shoe->price = request()->price;
-        $shoe->image = $imageName;
-        $shoe->save();
+        $shoe = Shoe::create([
+            'name' => request()->name,
+            'price' => request()->price,
+            'image' => $imageName,
+        ]);
 
-        for($i = 1; $i<= 15; $i++ ){
-            $l = new ShoeLink();
-                $l->shoe_id = $shoe->id;
-                $l->size_id = $i;
-                $l->quantity = 0;
-                $l->save();
+        $shoeLinks = [];
+        for ($i = 1; $i <= 15; $i++) {
+            $shoeLinks[] = [
+                'shoe_id' => $shoe->id,
+                'size_id' => $i,
+                'quantity' => 0,
+            ];
         }
-        return  redirect('/shoes/' . $shoe->id)->with('success', 'Shoe created successfully!');
+
+        ShoeLink::insert($shoeLinks);
+        return  redirect('/shoes/' . $shoe->id);
     }
 
     public function show(Shoe $shoe)
     {
-        if (auth()->user()) {
-            return view('shoes.show', compact('shoe'));
-        } else {
-            return view('shoes.showUser', compact('shoe'));
-        }
+        $view = auth()->user() ? 'shoes.show' : 'shoes.showUser';
+        return view($view, compact('shoe'));
     }
 
     public function edit(Shoe $shoe)
@@ -85,19 +77,20 @@ class ShoesController extends Controller
             'price' => 'required|numeric|between:0,99999.99',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
-        if (request()->hasFile('image')) {
-            $imageName = request()->file('image')->getClientOriginalName();
-            $existingImage = Shoe::where('image', $imageName)->exists();
-            if ($existingImage) {
-                $imageName = time() . '_' . $imageName;
-            }
-            request()->file('image')->move(public_path('images'), $imageName);
-            $shoe->image = $imageName;
-        }
 
-        $shoe->name = request()->name;
-        $shoe->price = request()->price;
-        $shoe->save();
+        $data = [
+            'name' => request()->name,
+            'price' => request()->price,
+        ];
+    
+        if (request()->hasFile('image')) {
+            $imageName = time() . '_' . request()->file('image')->getClientOriginalName();
+            request()->file('image')->move(public_path('images'), $imageName);
+            $data['image'] = $imageName;
+        }
+    
+        $shoe->update($data);
+        
         return redirect('/shoes/' . $shoe->id);
     }
 
@@ -114,7 +107,6 @@ class ShoesController extends Controller
 
     public function shoeStock(Shoe $shoe)
     {
-        $shoe = Shoe::find($shoe->id);
         $shoeStocks = $shoe->hasQuantity;
         return view('shoes.shoeStock', compact('shoeStocks'));
     }
