@@ -15,21 +15,13 @@ class ShowPanier extends Component
     public $shoeSizes;
     public $cartItems;
 
-    public function mount($shoes)
-    {
+    public function mount($shoes){
         $this->shoes = $shoes;
-        foreach($this->shoes as $shoe){
-            $this->total += $shoe->price;
-        }
-
-        $cartId = auth()->user()->cart->map->id->first();
-        $cartItem = CartItem::where('cart_id', $cartId)
-        ->get();
-        $this->cartItems = $cartItem;
+        $this->total = collect($this->shoes)->sum('price');
+        $this->cartItems = CartItem::where('cart_id', auth()->user()->cart->map->id->first())->get();
     }
 
     public function removePanier($idShoe){
-
         $cartId = auth()->user()->cart->map->id->first();
         $cartItem = CartItem::where('cart_id', $cartId)
         ->where('shoe_id', $idShoe)
@@ -37,33 +29,26 @@ class ShowPanier extends Component
 
         if ($cartItem) {
             $cartItem->delete();
-
             $this->shoes = auth()->user()->cart->flatMap->shoes;
-
-            $this->total = 0;
-            foreach ($this->shoes as $shoe) {
-                $this->total += $shoe->price;
-            }
+            $this->total = collect($this->shoes)->sum('price');
         }
     }
 
     public function toggleMenuSize($shoe_id){
-        if (!$this->menuSize || $this->selectedShoe_id !== $shoe_id) {
-            $this->menuSize = true;
-            $this->selectedShoe_id = $shoe_id;
-        } else {
-            $this->menuSize = false;
-        }
+        $shouldToggle = (!$this->menuSize || $this->selectedShoe_id !== $shoe_id);
+        $this->menuSize = $shouldToggle;
+        $this->selectedShoe_id = $shouldToggle ? $shoe_id : null;
 
-        $shoe = Shoe::find($shoe_id);
-        $this->shoeSizes = $shoe->hasQuantity;
+        if ($shouldToggle) {
+            $shoe = Shoe::find($shoe_id);
+            $this->shoeSizes = $shoe->hasQuantity;
+        }
     }
 
     public function chooseSize($size, $shoe_id){
-        $cartId = auth()->user()->cart->map->id->first();
-        $cartItem = CartItem::where('cart_id', $cartId)
-        ->where('shoe_id', $shoe_id)
-        ->first();
+        $cartItem = auth()->user()->cartItem
+            ->where('shoe_id', $shoe_id)
+            ->first();
 
         $cartItem->size = $size;
         $cartItem->save();

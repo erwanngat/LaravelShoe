@@ -12,23 +12,26 @@ class ShowOne extends Component
     public $currentSize;
     public $menuCart = false;
     public $selectedItem;
-    public function appearAddCart($size, $shoeLink_id){
-        $this->currentSize = $size;
-        $this->menuCart = true;
 
-        $this->selectedItem = $shoeLink_id;
+    public function appearAddCart($size, $shoeLink_id){
+        if(!$this->menuCart || $this->selectedItem != $shoeLink_id){
+            $this->menuCart = true;
+            $this->currentSize = $size;
+            $this->selectedItem = $shoeLink_id;
+        } else{
+            $this->selectedItem = null;
+            $this->menuCart = false;
+        }
     }
 
     public function addToCart(){
-        $user = auth()->user();
-        if ($user->cart->isEmpty()) {
+        if (auth()->user()->cart->isEmpty()) {
             $newCart = new Panier();
             $newCart->user_id = auth()->user()->id;
             $newCart->save();
-
             $cart_id = $newCart->id;
         } else {
-            $cart_id = $user->cart->first()->id;
+            $cart_id = auth()->user()->cart->first()->id;
         }
 
         $item = new CartItem();
