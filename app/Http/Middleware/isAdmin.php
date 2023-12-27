@@ -15,8 +15,7 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if (auth()->user() && auth()->user()->permissions == 0) {
+        if (!auth()->user() || auth()->user()?->permissions == 0) {
             return redirect('/shoes');
         }
         return $next($request);

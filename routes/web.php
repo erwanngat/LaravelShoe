@@ -27,16 +27,16 @@ Route::middleware(['isAdmin'])->group(function () {
 Route::get('/shoes', [ShoesController::class, 'index'])->name('shoes');
 Route::get('/shoes/{shoe}', [ShoesController::class, 'show']);
 Route::get('/', [ShoesController::class, 'index'])->name('shoes');
-Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
-Route::post('/buy', [ShoesController::class, 'buy']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return redirect('shoes');
-    })->name('dashboard');
-    Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
+    ])->group(function () {
+        Route::get('/dashboard', function () {
+            return redirect('shoes');
+        })->name('dashboard');
+        Route::get('/panier', [ShoesController::class, 'showPanier'])->name('cart');
+        Route::get('/pay', [ShoesController::class, 'pay'])->name('pay');
+        Route::post('/buy', [ShoesController::class, 'buy']);
 });

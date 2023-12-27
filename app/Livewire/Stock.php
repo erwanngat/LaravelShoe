@@ -16,77 +16,67 @@ class Stock extends Component
     public $stockValue;
     public $reference;
 
-    public function toggleMenuAction($stock_id)
-    {
-        if (!$this->menu || $this->selectedStock_id !== $stock_id) {
-            $this->menu = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->menu = false;
-        }
+    public function toggleMenuAction($stock_id){
+        $this->menu = (!$this->menu || $this->selectedStock_id !== $stock_id) ? true : false;
+        $this->selectedStock_id = $this->menu ? $stock_id : null;
+        $this->addStockField = false;
+        $this->removeStockField = false;
+        $this->setStockField = false;
     }
 
-    public function toggleAddStockField($stock_id)
-    {
-        if (!$this->addStockField || $this->selectedStock_id !== $stock_id) {
-            $this->addStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->addStockField = false;
+    public function toggleAddStockField($stock_id){
+        $this->addStockField = (!$this->addStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->addStockField ? $stock_id : null;
         }
+        $this->removeStockField = false;
+        $this->setStockField = false;
     }
 
-    public function toggleRemoveStockField($stock_id)
-    {
-        if (!$this->removeStockField || $this->selectedStock_id !== $stock_id) {
-            $this->removeStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->removeStockField = false;
+    public function toggleRemoveStockField($stock_id){
+        $this->removeStockField = (!$this->removeStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->removeStockField ? $stock_id : null;
         }
+        $this->addStockField = false;
+        $this->setStockField = false;
     }
 
-    public function toggleSetStockField($stock_id)
-    {
-        if (!$this->setStockField || $this->selectedStock_id !== $stock_id) {
-            $this->setStockField = true;
-            $this->selectedStock_id = $stock_id;
-        } else {
-            $this->setStockField = false;
+    public function toggleSetStockField($stock_id){
+        $this->setStockField = (!$this->setStockField || $this->selectedStock_id !== $stock_id) ? true : false;
+        if ($this->selectedStock_id == null) {
+            $this->selectedStock_id = $this->setStockField ? $stock_id : null;
         }
+        $this->addStockField = false;
+        $this->removeStockField = false;
     }
 
-    public function addStock($stock_id)
-    {
+    public function addStock($stock_id){
         $stock = ShoeLink::find($stock_id);
-        $quantity = $stock->quantity;
-        $newQuantity = $quantity + $this->stockValue;
-        $stock->quantity = $newQuantity;
-        $stock->save();
-
+        if ($this->stockValue > 0) {
+            $stock->increment('quantity', $this->stockValue);
+            $stock->save();
+        }
         $this->stocks = ShoeLink::all();
         $this->stockValue = null;
         $this->addStockField = false;
     }
 
-    public function removeStock($stock_id)
-    {
+    public function removeStock($stock_id){
         $stock = ShoeLink::find($stock_id);
-        $quantity = $stock->quantity;
-        $newQuantity = $quantity - $this->stockValue;
-        if ($newQuantity < 0) {
-            $newQuantity = 0;
+        if($this->stockValue > 0){
+            $stock->decrement('quantity', $this->stockValue);
+            if($stock->quantity < 0){
+                $stock->quantity = 0;
+            }
+            $stock->save();
         }
-        $stock->quantity = $newQuantity;
-        $stock->save();
-
         $this->stocks = ShoeLink::all();
         $this->stockValue = null;
         $this->removeStockField = false;
     }
 
-    public function setStock($stock_id)
-    {
+    public function setStock($stock_id){
         $stock = ShoeLink::find($stock_id);
         $newQuantity = $this->stockValue;
         if ($newQuantity < 0) {
@@ -106,8 +96,7 @@ class Stock extends Component
     }
 
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.stock');
     }
 }
